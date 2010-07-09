@@ -38,9 +38,9 @@
 
 @interface iP4TorchAppDelegate : NSObject <UIApplicationDelegate, AVCaptureVideoDataOutputSampleBufferDelegate> {
     UIWindow *window;
-	AVCaptureDevice *captureDevice;
-	AVCaptureVideoDataOutput *captureVideoDataOutput;
-	AVCaptureSession *captureSession;
+    AVCaptureDevice *captureDevice;
+    AVCaptureVideoDataOutput *captureVideoDataOutput;
+    AVCaptureSession *captureSession;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

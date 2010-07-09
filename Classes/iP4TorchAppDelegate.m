@@ -45,43 +45,43 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Find the first Flash capable Capture Device
-	self.captureDevice = nil;
-	NSArray *captureDevices = [AVCaptureDevice devices];
-	for (int i = 0; i < [captureDevices count]; i++) {
-		if ([[captureDevices objectAtIndex:i] hasTorch]) {
-			self.captureDevice = [captureDevices objectAtIndex:i];
-			break;
-		}
-	}
-	
-	// Setup the AVCaptureSession
-	captureSession = [[AVCaptureSession alloc] init];
-	[captureSession beginConfiguration];
-	AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
-	[captureSession addInput:videoInput];
-	captureVideoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
-	[captureVideoDataOutput setSampleBufferDelegate:self queue:dispatch_get_current_queue()];
-	[captureSession addOutput:captureVideoDataOutput];
-	[captureDevice lockForConfiguration:nil];
-	[captureDevice setTorchMode:AVCaptureTorchModeOn];
-	[captureSession commitConfiguration];
-	[captureSession startRunning];
-	
-	// There much be a nicer way to set the StatusBarStyle
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
+    self.captureDevice = nil;
+    NSArray *captureDevices = [AVCaptureDevice devices];
+    for (int i = 0; i < [captureDevices count]; i++) {
+        if ([[captureDevices objectAtIndex:i] hasTorch]) {
+            self.captureDevice = [captureDevices objectAtIndex:i];
+            break;
+        }
+    }
+
+    // Setup the AVCaptureSession
+    captureSession = [[AVCaptureSession alloc] init];
+    [captureSession beginConfiguration];
+    AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
+    [captureSession addInput:videoInput];
+    captureVideoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
+    [captureVideoDataOutput setSampleBufferDelegate:self queue:dispatch_get_current_queue()];
+    [captureSession addOutput:captureVideoDataOutput];
+    [captureDevice lockForConfiguration:nil];
+    [captureDevice setTorchMode:AVCaptureTorchModeOn];
+    [captureSession commitConfiguration];
+    [captureSession startRunning];
+
+    // There much be a nicer way to set the StatusBarStyle
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
     [window makeKeyAndVisible];
-	return YES;
+    return YES;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	[captureSession stopRunning];
-	[captureDevice unlockForConfiguration];
+    [captureSession stopRunning];
+    [captureDevice unlockForConfiguration];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-	[captureDevice lockForConfiguration:nil];
-	[captureDevice setTorchMode:AVCaptureTorchModeOn];
-	[captureSession startRunning];
+    [captureDevice lockForConfiguration:nil];
+    [captureDevice setTorchMode:AVCaptureTorchModeOn];
+    [captureSession startRunning];
 }
 
 
@@ -95,9 +95,9 @@
 #pragma mark Memory management
 
 - (void)dealloc {
-	[captureSession release];
-	[captureVideoDataOutput release];
-	[captureDevice release];
+    [captureSession release];
+    [captureVideoDataOutput release];
+    [captureDevice release];
     [window release];
     [super dealloc];
 }
